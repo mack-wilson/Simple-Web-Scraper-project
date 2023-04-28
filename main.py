@@ -6,7 +6,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-#get the entirety of the page's content
+# get the entirety of the page's content
 
 def fetch_content(url):
     content = requests.get(url)
@@ -14,19 +14,20 @@ def fetch_content(url):
         return content.text
     return None
 
-#parse the HTML content
+# parse the HTML content
 
 def parse_the_page(html):
     the_words = BeautifulSoup(html, "html.parser")
     return the_words
 
-#get the titles specifcally
+# get the titles, specifically
 
 def extract_titles(the_words):
     titles_data = []
     titles = the_words.find_all("h3", class_="page-title")
     for title in titles:
-        title = title.find("span", class_="text").get_text()
+        titlewords = title.get_text()
+        titles_data.append(titlewords)
     return titles_data
 
 #display the titles
@@ -35,6 +36,7 @@ def display_titles(titles_data):
     for title in titles_data:
         print(f"{title}\n")
 
+# present data
 
 if __name__ == "__main__":
     url = "https://scrapethissite.com/pages/"
